@@ -33,8 +33,13 @@ import MainNav from "@/components/MainNav";
 export default {
   name: "Admin",
   components: {MainNav},
+  mounted() {
+    this.toDefaultChild()
+  },
   methods: {
-
+    toDefaultChild(){
+      this.$router.replace("/admin/blog/write")
+    }
   }
 }
 </script>

@@ -47,6 +47,7 @@ export default {
   min-height: 500px;
   height: auto;
   margin-top: 20px;
+  margin-bottom: 50px;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;

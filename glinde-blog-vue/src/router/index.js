@@ -29,7 +29,6 @@ const routes = [
   },
   {
     path: "/admin",
-    redirect: "/admin/blog/write",
     component: Admin,
     meta: {
       requireAuth: true

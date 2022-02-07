@@ -15,6 +15,7 @@ mybatis-plus:
 
 token:
   header: token
+  expire: 18000
 
 minio:
   path:

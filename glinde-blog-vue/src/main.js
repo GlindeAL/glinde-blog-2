@@ -28,11 +28,19 @@ router.beforeEach((to,from,next) => {
   if(to.meta.requireAuth){
     const token = window.localStorage.getItem("token");
     if(!token){
-      return next(from.path);
+      if(from.meta.requireAuth){
+        next("/home")
+      }else{
+        next(from.path)
+      }
     }
     getRequest("/check").then(resp => {
       if(!resp){
-        return next(from.path)
+        if(from.meta.requireAuth){
+          next("/home")
+        }else{
+          next(from.path)
+        }
       }
     })
   }

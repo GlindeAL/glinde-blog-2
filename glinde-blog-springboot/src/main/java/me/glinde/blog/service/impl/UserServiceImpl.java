@@ -12,6 +12,7 @@ import me.glinde.blog.utils.Result;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
     private JedisUtils jedisUtils;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Value("${token.expire}")
+    private Integer expire;
 
     @Override
     public Result login(LoginForm loginForm, HttpServletRequest request) {
@@ -55,6 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
                 .getBytes(StandardCharsets.UTF_8));
         String token = Hex.encodeHexString(hash);
         jedisUtils.set(token,user.getUsername());
+        jedisUtils.expire(token,expire);
 
         return Result.ok("登录成功",new TokenBean(token,user.getId(),user.getUsername()));
     }
