@@ -53,7 +53,7 @@
           <p>id：{{editForm.id}}</p>
           <p>状态：{{editForm.state?(editForm.state===1?"显示":"隐藏"):""}}</p>
           <el-button type="primary" icon="el-icon-check" @click="updateBlogState(editForm.id,1)"></el-button>
-          <el-button type="info" icon="el-icon-view" @click="updateBlogState(editForm.id,0)"></el-button>
+          <el-button type="info" icon="el-icon-view" @click="updateBlogState(editForm.id,2)"></el-button>
           <el-button type="danger" icon="el-icon-delete" @click="deleteBlog(editForm.id)"></el-button>
         </el-form-item>
         <el-form-item>

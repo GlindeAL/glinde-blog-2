@@ -104,7 +104,7 @@ export default {
     submitMail(){
       this.$refs.mailFormRef.validate(valid => {
         if(!valid) return
-        this.postRequest("/mail/save",this.mailForm).then(resp => {
+        this.postRequest("/mail/home/save",this.mailForm).then(resp => {
           if(resp){
             this.resetForm()
             this.getAllMails()

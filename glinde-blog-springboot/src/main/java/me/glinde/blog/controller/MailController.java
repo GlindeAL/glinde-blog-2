@@ -68,7 +68,7 @@ public class MailController {
     /**
      * 保存
      */
-    @PostMapping("/save")
+    @PostMapping("/home/save")
     public Result save(@RequestBody MailEntity mail){
         mail.setDate(new Date());
 		mailService.save(mail);
