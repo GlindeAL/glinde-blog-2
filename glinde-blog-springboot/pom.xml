@@ -10,7 +10,7 @@
     </parent>
     <groupId>me.glinde</groupId>
     <artifactId>blog</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>blog</name>
     <description>Blog project by Glinde</description>
     <properties>
