@@ -2,19 +2,17 @@ package me.glinde.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * 用户
  * 
  * @author glinde
- * @email 2512719869@qq.com
  * @date 2022-01-28 22:26:41
  */
 @Data

@@ -1,7 +1,7 @@
 package me.glinde.blog.dao;
 
-import me.glinde.blog.entity.BlogEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import me.glinde.blog.entity.BlogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

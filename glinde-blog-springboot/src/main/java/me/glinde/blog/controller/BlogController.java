@@ -1,19 +1,17 @@
 package me.glinde.blog.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import me.glinde.blog.utils.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import me.glinde.blog.dto.QueryInfo;
 import me.glinde.blog.entity.BlogEntity;
 import me.glinde.blog.service.BlogService;
+import me.glinde.blog.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 
 
@@ -28,58 +26,86 @@ import me.glinde.blog.service.BlogService;
 @RestController
 @RequestMapping("/blog")
 public class BlogController {
+
     @Autowired
     private BlogService blogService;
 
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    public Result list(){
-        List<BlogEntity> blogList = blogService.list();
+    @GetMapping("/home/list")
+    public Result list(QueryInfo queryInfo){
+        Page<BlogEntity> page = new Page<>(queryInfo.getPageCurrent(), queryInfo.getPageSize());
+        IPage<BlogEntity> blogList = blogService.page(page,
+                new QueryWrapper<BlogEntity>()
+                        .like("title",queryInfo.getQuery())
+                        .eq("state",1)
+                        .orderByDesc("date"));
 
-        return Result.ok(blogList);
+        return Result.ok(blogList).message(null);
     }
-
 
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/home/info/{id}")
     public Result info(@PathVariable("id") Integer id){
 		BlogEntity blog = blogService.getById(id);
+		if(blog.getState() != 1){
+		    return Result.fail().message("该博客不处于公开状态");
+        }
 
-        return Result.ok();
+        return Result.ok(blog).message(null);
+    }
+
+    @GetMapping("/admin/list")
+    public Result adminList(QueryInfo queryInfo){
+        Page<BlogEntity> page = new Page<>(queryInfo.getPageCurrent(),queryInfo.getPageSize());
+        IPage<BlogEntity> blogList = blogService.page(page,
+                new QueryWrapper<BlogEntity>()
+                        .orderByDesc("date"));
+
+        return Result.ok(page).message(null);
+    }
+
+    @GetMapping("/admin/info/{id}")
+    public Result adminInfo(@PathVariable("id") Integer id){
+        return Result.ok(blogService.getById(id)).message(null);
+    }
+
+    @PutMapping("/admin/state")
+    public Result updateState(@RequestParam("id") Integer id,@RequestParam("state") Integer state){
+        return blogService.update(
+                new UpdateWrapper<BlogEntity>()
+                        .eq("id",id).set("state",state))
+                ? Result.ok() : Result.fail();
     }
 
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/admin/save")
     public Result save(@RequestBody BlogEntity blog){
-		blogService.save(blog);
+        blog.setDate(new Date());
 
-        return Result.ok();
+        return blogService.save(blog) ? Result.ok() : Result.fail();
     }
 
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PutMapping("/admin/update")
     public Result update(@RequestBody BlogEntity blog){
-		blogService.updateById(blog);
-
-        return Result.ok();
+        return blogService.updateById(blog) ? Result.ok() : Result.fail();
     }
 
     /**
      * 删除
      */
-    @RequestMapping("/delete")
-    public Result delete(@RequestBody Integer[] ids){
-		blogService.removeByIds(Arrays.asList(ids));
-
-        return Result.ok();
+    @DeleteMapping("/admin/delete/{id}")
+    public Result delete(@PathVariable("id") Integer id){
+        return blogService.removeById(id)
+                ? Result.ok() : Result.fail();
     }
 
 }

@@ -7,8 +7,8 @@ axios.defaults.withCredentials = true
 //请求拦截器
 axios.interceptors.request.use(config => {
     //如果存在token，请求头携带
-    if(window.sessionStorage.getItem('tokenStr')){
-        config.headers['Authorization'] = window.sessionStorage.getItem('tokenStr');
+    if(window.localStorage.getItem('token')){
+        config.headers['token'] = window.localStorage.getItem('token');
     }
     return config;
 },error => {
@@ -19,7 +19,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(success => {
     //业务逻辑错误
     if(success.status && success.status === 200){
-        if(success.data.code === 500 || success.data.code === 401 || success.data.code === 403){
+        if(success.data.code !== 200){
             Message.error({message:success.data.message});
             return;
         }
@@ -45,13 +45,13 @@ axios.interceptors.response.use(success => {
     }
 })
 
-let base = 'http://localhost:8081'
+let base = 'http://localhost:8080'
 
 //传送json格式的post请求
 export const postRequest = (url,params) => {
     return axios({
         method: 'post',
-        url: base+url,
+        url: `${base}${url}`,
         data: params
     })
 }
@@ -59,7 +59,7 @@ export const postRequest = (url,params) => {
 export const putRequest = (url,params) => {
     return axios({
         method: 'put',
-        url: base+url,
+        url: `${base}${url}`,
         data: params
     })
 }
@@ -67,15 +67,26 @@ export const putRequest = (url,params) => {
 export const getRequest = (url,params) => {
     return axios({
         method: 'get',
-        url: base+url,
-        data: params
+        url: `${base}${url}`,
+        params: params
     })
 }
 
 export const deleteRequest = (url,params) => {
     return axios({
         method: 'delete',
-        url: base+url,
-        data: params
+        url: `${base}${url}`,
+        params: params
+    })
+}
+
+export const filePost = (url,params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
     })
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="me.glinde.blog..dao.BlogDao">
+<mapper namespace="me.glinde.blog.dao.BlogDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="me.glinde.blog..entity.BlogEntity" id="blogMap">
+    <resultMap type="me.glinde.blog.entity.BlogEntity" id="blogMap">
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="description" column="description"/>

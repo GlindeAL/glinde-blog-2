@@ -9,9 +9,13 @@ spring:
     active: dev
 
 mybatis-plus:
-  mapper-locations: classpath*:/mapper/*Mapper.xml
+  mapper-locations: classpath*:/mapper/*Dao.xml
   configuration:
     map-underscore-to-camel-case: false
 
 token:
   header: token
+
+minio:
+  path:
+    image: image/

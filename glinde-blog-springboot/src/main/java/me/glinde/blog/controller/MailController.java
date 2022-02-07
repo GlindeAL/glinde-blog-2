@@ -1,18 +1,17 @@
 package me.glinde.blog.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import me.glinde.blog.utils.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import me.glinde.blog.dto.QueryInfo;
 import me.glinde.blog.entity.MailEntity;
 import me.glinde.blog.service.MailService;
+import me.glinde.blog.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 
 
@@ -32,11 +31,27 @@ public class MailController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    public Result list(@RequestParam Map<String, Object> params){
+    @GetMapping("/home/list")
+    public Result list(QueryInfo queryInfo){
+        Page<MailEntity> page = new Page<>(queryInfo.getPageCurrent(), queryInfo.getPageSize());
+        IPage<MailEntity> mailList = mailService.page(page,
+                new QueryWrapper<MailEntity>()
+                        .like("content",queryInfo.getQuery())
+                        .eq("state",1)
+                        .orderByDesc("date"));
 
+        return Result.ok(mailList).message(null);
+    }
 
-        return Result.ok();
+    @GetMapping("/admin/list")
+    public Result adminList(QueryInfo queryInfo){
+        Page<MailEntity> page = new Page<>(queryInfo.getPageCurrent(), queryInfo.getPageSize());
+        IPage<MailEntity> mailList = mailService.page(page,
+                new QueryWrapper<MailEntity>()
+                        .like("content",queryInfo.getQuery())
+                        .orderByDesc("date"));
+
+        return Result.ok(mailList).message(null);
     }
 
 
@@ -47,14 +62,15 @@ public class MailController {
     public Result info(@PathVariable("id") Integer id){
 		MailEntity mail = mailService.getById(id);
 
-        return Result.ok();
+        return Result.ok().message(null);
     }
 
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public Result save(@RequestBody MailEntity mail){
+        mail.setDate(new Date());
 		mailService.save(mail);
 
         return Result.ok();
@@ -70,14 +86,19 @@ public class MailController {
         return Result.ok();
     }
 
+    @PutMapping("/admin/state")
+    public Result updateState(@RequestParam("id") Integer id,@RequestParam("state") Integer state){
+        return mailService.update(
+                new UpdateWrapper<MailEntity>().eq("id",id).set("state",state))
+                ? Result.ok() : Result.fail();
+    }
+
     /**
      * 删除
      */
-    @RequestMapping("/delete")
-    public Result delete(@RequestBody Integer[] ids){
-		mailService.removeByIds(Arrays.asList(ids));
-
-        return Result.ok();
+    @RequestMapping("/admin/delete/{id}")
+    public Result delete(@PathVariable Integer id){
+        return mailService.removeById(id) ? Result.ok() : Result.fail();
     }
 
 }

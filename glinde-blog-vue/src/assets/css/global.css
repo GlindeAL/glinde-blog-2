@@ -2,3 +2,10 @@
     margin: 0;
     padding: 0;
 }
+HTML {
+    background-color: rgb(233, 237, 241);
+}
+a {
+    text-decoration: none;
+    color: black;
+}

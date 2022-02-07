@@ -1,14 +1,10 @@
 package me.glinde.blog.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
+import me.glinde.blog.dto.LoginForm;
+import me.glinde.blog.service.UserService;
 import me.glinde.blog.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import me.glinde.blog.entity.UserEntity;
-import me.glinde.blog.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,8 +23,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody UserEntity user, HttpServletRequest request){
-        return userService.login(user,request);
+    public Result login(@RequestBody LoginForm loginForm, HttpServletRequest request){
+        return userService.login(loginForm,request).message("登录成功");
     }
 
+    @GetMapping("/check")
+    public Result check(){
+        return Result.ok().message(null);
+    }
 }

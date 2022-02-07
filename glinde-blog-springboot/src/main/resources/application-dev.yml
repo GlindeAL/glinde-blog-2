@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/glinde_blog?useUnicode=true&characterEncoding=UTF-8&&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/glinde_blog?useUnicode=true&characterEncoding=UTF-8&&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
   redis:
@@ -14,6 +14,12 @@ spring:
         max-wait: -1
         min-idle: 0
     timeout: 0
+
+minio:
+  endpoint: http://192.168.44.128:9000
+  accessKey: admin
+  secretKey: 12345678
+  bucketName: glinde-blog
 
 server:
   port: 8080

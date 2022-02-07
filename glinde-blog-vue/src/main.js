@@ -8,7 +8,7 @@ import './assets/css/global.css'
 import mavonEditer from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-import {postRequest} from "@/utils/api";
+import {filePost, postRequest} from "@/utils/api";
 import {putRequest} from "@/utils/api";
 import {getRequest} from "@/utils/api";
 import {deleteRequest} from "@/utils/api";
@@ -19,9 +19,25 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.deleteRequest = deleteRequest;
+Vue.prototype.filePost = filePost
 
 Vue.use(Element)
 Vue.use(mavonEditer)
+
+router.beforeEach((to,from,next) => {
+  if(to.meta.requireAuth){
+    const token = window.localStorage.getItem("token");
+    if(!token){
+      return next(from.path);
+    }
+    getRequest("/check").then(resp => {
+      if(!resp){
+        return next(from.path)
+      }
+    })
+  }
+  return next();
+})
 
 new Vue({
   router,

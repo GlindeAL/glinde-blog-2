@@ -8,13 +8,12 @@ import lombok.Getter;
 @Getter
 public enum ResultCodeEnum {
 
-    SUCCESS(200,"成功"),
-    FAIL(201, "失败"),
-    LOGIN_AUTH(203, "未登陆"),
-    PERMISSION(204, "没有权限"),
-    PARAM_ERROR( 205, "参数不正确"),
-    SERVICE_ERROR(206, "服务异常"),
-    DATA_ERROR(207, "数据异常"),
+    SUCCESS(200,"操作成功"),
+    FAIL(400, "操作失败"),
+    LOGIN_AUTH(401, "未登陆"),
+    PERMISSION(403, "权限不足"),
+    NOT_FOUND(404,"未找到"),
+    TIMEOUT(504,"超时")
     ;
 
     private Integer code;
