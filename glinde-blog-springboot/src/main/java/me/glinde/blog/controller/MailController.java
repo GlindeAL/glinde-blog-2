@@ -19,7 +19,6 @@ import java.util.Date;
  * 信件
  *
  * @author glinde
- * @email 2512719869@qq.com
  * @date 2022-01-28 22:26:41
  */
 @RestController
