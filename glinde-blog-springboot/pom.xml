@@ -10,12 +10,15 @@
     </parent>
     <groupId>me.glinde</groupId>
     <artifactId>blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>blog</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Blog project by Glinde</description>
     <properties>
         <java.version>11</java.version>
     </properties>
+    <packaging>war</packaging>
+
+
     <dependencies>
 
         <dependency>
