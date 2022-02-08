@@ -14,6 +14,14 @@
 
 作为新版本被部署到 <https://glinde.me>
 
+Tips：
+
+需要根据实际情况修改后端配置类CorsConfig中的allowedOrigin
+
+只提供了表结构的sql,用户需要手动添加,理论上因为是单人博客,所以只需要新建一个用户
+
+密码使用Bcrypt进行加密（Round为13，可以在Config类中修改），token使用SHA256进行加密
+
 ## 前端
 
 - Vue
@@ -36,18 +44,6 @@
 - glinde-blog-vue               前端项目文件
 - sql                                   表结构sql
 - image                             文档使用的图片
-
-
-
-Tips：
-
-需要根据实际情况修改后端配置类CorsConfig中的allowedOrigin
-
-只提供了表结构的sql,用户需要手动添加,理论上因为是单人博客,所以只需要新建一个用户
-
-密码使用Bcrypt进行加密（Round为13，可以在Config类中修改），token使用SHA256进行加密
-
-
 
 ## 页面展示
 
