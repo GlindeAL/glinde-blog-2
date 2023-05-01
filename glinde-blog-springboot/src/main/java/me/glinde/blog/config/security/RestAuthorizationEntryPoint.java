@@ -1,6 +1,6 @@
 package me.glinde.blog.config.security;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import me.glinde.blog.utils.Result;
 import me.glinde.blog.utils.ResultCodeEnum;
 import org.springframework.security.core.AuthenticationException;

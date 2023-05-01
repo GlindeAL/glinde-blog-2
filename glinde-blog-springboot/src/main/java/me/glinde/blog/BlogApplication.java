@@ -11,12 +11,7 @@ import java.util.TimeZone;
 
 @MapperScan("me.glinde.blog.dao")
 @SpringBootApplication
-public class BlogApplication extends SpringBootServletInitializer {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(BlogApplication.class);
-    }
+public class BlogApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BlogApplication.class, args);

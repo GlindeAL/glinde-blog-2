@@ -5,10 +5,10 @@
     </div>
     <div id="rightDiv">
       <article id="introductionText">
-        <p>&emsp;目前是一名在校大学生，主要学习后端开发，也了解一些前端知识。</p><br>
-        <p>打算继续努力学习理论、了解技术，然后根据自己的兴趣做更多的项目，</p><br>
-        <p>尽量在大四之前通过做项目让自己变得越熟练越好。有时会刷刷算法题，</p><br>
-        <p>预计在大三下学期也会去准备一些面经，为之后的实习和校招做准备。</p>
+        <p>&emsp;24届毕业生，目前在找实习，以及为之后的校招做准备。</p>
+        <p>&emsp;大学在校期间自学了后端开发的相应技术栈以及一些架构知识。</p>
+        <p>&emsp;出于兴趣和练习技术，根据自己的设计制作了glinta视频网站、glinyun网盘、glindexam在线考试这三个项目。</p>
+        <p>&emsp;最近还做了一个基于Netty+spring-cloud-bootstrap的配置中心，取名为Jarrjes，有时间的话会考虑再做一个微服务调用框架。</p>
       </article>
       <div id="linkDiv">
         <span class="line-between">———————————————————————————————</span>
@@ -65,12 +65,13 @@ export default {
   width: 550px;
 }
 #introductionText {
-  height: 120px;
-  width: 550px;
-  padding-top: 30px;
+  height: 155px;
+  width: 530px;
+  padding-right: 20px;
+  padding-top: 20px;
 }
 #linkDiv {
-  height: 100px;
+  height: 75px;
   width: 550px;
 }
 .line-between {
@@ -79,11 +80,11 @@ export default {
 ul {
   list-style-type: none;
   text-align: center;
-  margin: 20px auto;
+  margin: 8px auto 0;
 }
 li {
   display: inline-block;
-  margin: 0 50px;
+  margin-right: 90px;
 }
 a {
   display: inline-block;
@@ -91,7 +92,7 @@ a {
   color: white;
 }
 p {
-  line-height: 6px;
+  line-height: 25px;
   color: white;
 }
 </style>
